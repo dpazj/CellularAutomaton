@@ -152,7 +152,7 @@ bool testInt(char* argv){ //Test argument char array for an integer
 }
 
 int main(int argc, char* argv[]){ //Processes command line arguments
-	string USAGE("Usage: ./CA [-db] [-bd] [[-a] [[-i=<'sequenceSize'>][-d=<'sequenceSize'][-c]] [[-i=<'ruleset'>][-d][-c]] [[-i=<'repetitions'][-sl=<'repetitions'>]] [-s=<'outputfile'>] [-w]] \nTake a look at the help file for more information");
+	string USAGE("Usage: ./CA [-db] [-bd] [[-a] [[-i=<'sequenceSize'>][-d=<'sequenceSize'][-c]] [[-i=<'ruleset'>][-d][-c]] [[-i=<'repetitions'][-sl=<'repetitions'>]] [-s=<'outputfile'>] [-w]] \n Use command -help for more information.");
 
 	int argIndex = 1;
 	
@@ -373,6 +373,17 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 		}else if(string(argv[argIndex]) == "-bd" || string(argv[argIndex]) == "--bindecimal"){
 			//TODO
 
+		}else if(string(argv[argIndex]) == "-help"){
+			string line;
+			ifstream helpfile("helpfile");
+			if(helpfile.is_open()){
+				while(getline(helpfile,line)){
+					cout << line << endl;
+				}
+				helpfile.close();
+			}else{
+				cout << "Unable to open helpfile, please make sure it has not been deleted or moved.";
+			}
 		}else{
 			cout << USAGE << endl;
 			return 1;
