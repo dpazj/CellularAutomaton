@@ -2,7 +2,7 @@ CellularAutomaton by Joe Riemersma and Claire Sommerville
 This application produces a basic Cellular Automaton.
 
 CLI Arguments:
-	./CA [-db=<'decimal'] [-bd] [[-a] [[-i=<'sequenceSize'>][-d=<'sequenceSize'>][-c]] [[-i=<'ruleset'>][-d][-c]] [[-i=<'repetitions'][-sl=<'repetitions'>]] [-s=<'outputfile'>] [-w]]
+	./CA [-db=<'decimal'] [-bd] [[-a] [[seqinput=<'sequenceSize'>][seqdefault=<'sequenceSize'>][custom]] [[-i=<'ruleset'>][-d][-c]] [[-i=<'repetitions'][-sl=<'repetitions'>]] [-s=<'outputfile'>] [-w]]
 
 	-help:
 		Displays help file.
@@ -17,35 +17,35 @@ CLI Arguments:
 		Cell automaton feature. Must be followed by three arguments.
 
 	Argument 1:
-		-i='sequenceSize' | --input:
+		seqinput='sequenceSize':
 			Specifies how many bits the initial and subsequent rows will contain.
 			Will create a random sequence with 'sequenceSize' number of bits.
 
-		-d='sequenceSize' | --default:
+		seqdefault='sequenceSize':
 			Specifies how many bits the initial and subsequent rows will contain.
 			Will use a default sequence containing a single '1' in the middle of the
 			sequence. Sequence will contain 'sequenceSize' number of bits.
 
-		-c | --custom:
+		seqcustom:
 			User enters their own custom sequence
 
 	Argument 2:
-		-i='ruleset' | --input:
+		rulesetinput='ruleset':
 			Specifies what ruleset will be used in the generation of child sequences.
 			A binary bitset will be created from integer 'ruleset'.
 
-		-d | --default:
+		rulesetdefault:
 			Ruleset will use default value of '30' - '00011110'.
 
-		-c | --custom:
+		rulesetcustom:
 			User enters their own custom bitset.
 
 	Argument 3:
-		-i='repetitions' | --input:
+		iterationinput='repetitions':
 			Specifies the number of different sequences the program will produce.
 			Will produce 'repeitions' number of times.
 
-		-sl='repetitions' | --singleline: 
+		iterationsingle='repetitions': 
 			Specifies the number of different sequences the program will produce. 
 			Will only show next sequence when user presses a key. Will produce 'repeitions' number of times.
 

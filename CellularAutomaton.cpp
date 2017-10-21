@@ -152,7 +152,9 @@ bool testInt(char* argv){ //Test argument char array for an integer
 }
 
 int main(int argc, char* argv[]){ //Processes command line arguments
-	string USAGE("Usage: ./CA [-db] [-bd] [[-a] [[-i=<'sequenceSize'>][-d=<'sequenceSize'][-c]] [[-i=<'ruleset'>][-d][-c]] [[-i=<'repetitions'][-sl=<'repetitions'>]] [-s=<'outputfile'>] [-w]] \n Use command -help for more information.");
+	string USAGE("Usage: ./CA [-db] [-bd] [-a] \n Use command -help for more information.");
+	string AUTOMATON("Usage: ./CA -a [[seqinput=<'sequenceSize'>][seqdefault=<'sequenceSize'][seqcustom]] [[rulesetinput=<'ruleset'>][rulesetdefault][rulesetcustom]] [[iterationinput=<'repetitions'][iterationsingl=<'repetitions'>]] [-s=<'outputfile'>] [-w]] \n Use command -help for more information.");
+
 
 	int argIndex = 1;
 	
@@ -173,123 +175,123 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 			//PARENT SEQUENCE ARGUMENTS
 			argIndex++;
 			if(argIndex >= argc){
-				cout << USAGE << endl;
+				cout << AUTOMATON << endl;
 				return 1;
-			}else if(string(argv[argIndex]) == "-i" || string(argv[argIndex]) == "--input"){
+			}else if(string(argv[argIndex]) == "seqinput"){
 				argIndex++;
-				if(argIndex >= argc){cout << USAGE << endl;return 1;}
+				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
 
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 0 || atoi(argv[argIndex]) > 200){
-						cout << "'-i' should be follwed by an integer between 0 and 200" << endl;
-						cout << USAGE << endl;
+						cout << "'seqinput' should be follwed by an integer between 0 and 200" << endl;
+						cout << AUTOMATON << endl;
 						return 1;
 					}else{
 						genSize = atoi(argv[argIndex]);
 						randGen = true;
 					}
 				}else{ 
-					cout << "Please follow '-i' with an integer" << endl;
-					cout << USAGE << endl;
+					cout << "Please follow 'seqinput' with an integer" << endl;
+					cout << AUTOMATON << endl;
 					return 1;
 				}
-			}else if(string(argv[argIndex]) == "-d" || string(argv[argIndex]) == "--default"){
+			}else if(string(argv[argIndex]) == "seqdefault"){
 				argIndex++;
-				if(argIndex >= argc){cout << USAGE << endl;return 1;}
+				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
 
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 0 || atoi(argv[argIndex]) > 200){
-						cout << "the first '-d' should be follwed by an integer between 0 and 200" << endl;
-						cout << USAGE << endl;
+						cout << "'seqdefault' should be follwed by an integer between 0 and 200" << endl;
+						cout << AUTOMATON << endl;
 						return 1;
 					}else{
 						genSize = atoi(argv[argIndex]);
 						defaultGen = true;
 					}
 				}else{ 
-					cout << "Please follow the first '-d' with an integer" << endl;
-					cout << USAGE << endl;
+					cout << "Please follow 'seqdefault' with an integer" << endl;
+					cout << AUTOMATON << endl;
 					return 1;
 				}
-			}else if(string(argv[argIndex]) == "-c" || string(argv[argIndex]) == "--custom"){
+			}else if(string(argv[argIndex]) == "seqcustom"){
 				customGen = true;
 			}else{
-				cout << USAGE << endl;
+				cout << AUTOMATON << endl;
 				return 1;
 			}
 
 			//RULESET ARGUMENTS
 			argIndex++;
 			if(argIndex >= argc){
-				cout << USAGE << endl;
+				cout << AUTOMATON << endl;
 				return 1;
-			}else if(string(argv[argIndex]) == "-i" || string(argv[argIndex]) == "--input"){
+			}else if(string(argv[argIndex]) == "rulesetinput"){
 				argIndex++;
-				if(argIndex >= argc){cout << USAGE << endl;return 1;}
+				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 0 || atoi(argv[argIndex]) > 255){
-						cout << "-i' should be follwed by an integer between 0 and 255" << endl;
-						cout << USAGE << endl;
+						cout << "rulesetinput' should be follwed by an integer between 0 and 255" << endl;
+						cout << AUTOMATON << endl;
 						return 1;
 					}else{
 						bitset<8> a (atoi(argv[argIndex]));
 						ruleset = a.to_string();
 					}
 				}else{ 
-					cout << "Please follow '-i' with an integer";
-					cout << USAGE << endl;
+					cout << "Please follow 'rulesetinput' with an integer";
+					cout << AUTOMATON << endl;
 					return 1;
 				}
-			}else if(string(argv[argIndex]) == "-d" || string(argv[argIndex]) == "--default"){
+			}else if(string(argv[argIndex]) == "rulesetdefault"){
 				bitset<8> a (30);
 				ruleset = a.to_string();
-			}else if(string(argv[argIndex]) == "-c" || string(argv[argIndex]) == "--custom"){
+			}else if(string(argv[argIndex]) == "rulesetcustom"){
 				customBitset = true;
 			}else{
-				cout << USAGE << endl;
+				cout << AUTOMATON << endl;
 				return 1;
 			}
 
 			//ITERATION ARGUMENTS
 			argIndex++;
 			if(argIndex >= argc){
-				cout << USAGE << endl;
+				cout << AUTOMATON << endl;
 				return 1;
-			}else if(string(argv[argIndex]) == "-i" || string(argv[argIndex]) == "--input"){
+			}else if(string(argv[argIndex]) == "iterationinput"){
 				argIndex++;
-				if(argIndex >= argc){cout << USAGE << endl;return 1;}
+				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 1){
-						cout << "-i' should be follwed by an integer greater than 0" << endl;
-						cout << USAGE << endl;
+						cout << "iterationinput' should be follwed by an integer greater than 0" << endl;
+						cout << AUTOMATON << endl;
 						return 1;
 					}else{
 						iterations = atoi(argv[argIndex]);
 					}
 				}else{ 
-					cout << "Please follow '-i' with an integer";
-					cout << USAGE << endl;
+					cout << "Please follow 'iterationinput' with an integer";
+					cout << AUTOMATON << endl;
 					return 1;
 				}
-			}else if(string(argv[argIndex]) == "-sl" || string(argv[argIndex]) == "--singleline"){
+			}else if(string(argv[argIndex]) == "iterationsingle"){
 				singleline = true;
 				argIndex++;
-				if(argIndex >= argc){cout << USAGE << endl;return 1;}
+				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 1){
-						cout << "-sl' should be follwed by an integer greater than 0" << endl;
-						cout << USAGE << endl;
+						cout << "iterationsingle' should be follwed by an integer greater than 0" << endl;
+						cout << AUTOMATON << endl;
 						return 1;
 					}else{
 						iterations = atoi(argv[argIndex]);
 					}
 				}else{ 
-					cout << "Please follow '-s' with an integer";
-					cout << USAGE << endl;
+					cout << "Please follow 'iterationsingle' with an integer";
+					cout << AUTOMATON << endl;
 					return 1;
 				}
 			}else{
-				cout << USAGE << endl;
+				cout << AUTOMATON << endl;
 				return 1;
 			}
 
@@ -305,7 +307,7 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 						wrap = true;
 					
 				}else{
-					cout << "Command '" << string(argv[argIndex]) << "' not recognised\n" <<USAGE << endl;
+					cout << "Command '" << string(argv[argIndex]) << "' not recognised\n" << AUTOMATON << endl;
 				}
 				argIndex++;
 			}
