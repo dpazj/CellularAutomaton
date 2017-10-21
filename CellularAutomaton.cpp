@@ -55,10 +55,13 @@ void InitGenerations(){  //iniitalises arrays
 }
 
 void OutputCharArray(char arrayToPrint[]){ //Prints binary sequence to terminal and outputs to file if user selcted.
-	
 	//Print to terminal
 	for(int i = 0; i < genSize; i++){
-		cout << arrayToPrint[i];
+		if(arrayToPrint[i] == '0'){
+			cout << char(32);
+		}else{
+			cout << arrayToPrint[i];
+		}
 	}
 	if(singleline){
 		getchar(); //make user enter something before next row is displayed.
