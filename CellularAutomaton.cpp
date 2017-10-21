@@ -60,7 +60,7 @@ void OutputCharArray(char arrayToPrint[]){ //Prints binary sequence to terminal 
 		if(arrayToPrint[i] == '0'){
 			cout << char(32);
 		}else{
-			cout << arrayToPrint[i];
+			cout << char(42); 
 		}
 	}
 	if(singleline){
@@ -148,15 +148,20 @@ void StartAutomaton(){ //Iterates through parent sequence to produce child seque
 
 
 bool testInt(char* argv){ //Test argument char array for an integer
-	int temp;
-	istringstream iss(argv);
-	if(!(iss >> temp)) {return false;}
-	return true;
+	string s(argv);
+
+	//Taken from first answer https://stackoverflow.com/questions/2844817/how-do-i-check-if-a-c-string-is-an-int 
+	//user paercebal
+	if(s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false ;
+    char * p ;
+    strtol(s.c_str(), &p, 10) ;
+
+   return (*p == 0) ;
 }
 
 int main(int argc, char* argv[]){ //Processes command line arguments
-	string USAGE("Usage: ./CA [-db] [-bd] [-a] \n Use command -help for more information.");
-	string AUTOMATON("Usage: ./CA -a [[seqinput=<'sequenceSize'>][seqdefault=<'sequenceSize'][seqcustom]] [[rulesetinput=<'ruleset'>][rulesetdefault][rulesetcustom]] [[iterationinput=<'repetitions'][iterationsingl=<'repetitions'>]] [-s=<'outputfile'>] [-w]] \n Use command -help for more information.");
+	string USAGE("Usage: ./CA [-db] [-bd] [-a] \nUse command ./CA -help for more information.");
+	string AUTOMATON("Usage: ./CA -a [seqinput=<'sequenceSize'> | seqdefault=<'sequenceSize' | seqcustom]	[rulesetinput=<'ruleset'> | rulesetdefault | rulesetcustom] 	[iterationall=<'repetitions' | iterationsingl=<'repetitions'>]	 [-s=<'outputfile'>] [-w] \nUse command ./CA -help for more information.");
 
 
 	int argIndex = 1;
@@ -182,12 +187,12 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 				return 1;
 			}else if(string(argv[argIndex]) == "seqinput"){
 				argIndex++;
-				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
+				if(argIndex >= argc){cout << "Usage: ./CA -a seqinput 'sequenceSize'" << endl;return 1;}
 
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 0 || atoi(argv[argIndex]) > 200){
 						cout << "'seqinput' should be follwed by an integer between 0 and 200" << endl;
-						cout << AUTOMATON << endl;
+						cout << "Usage: ./CA -a seqinput 'sequenceSize'" << endl;
 						return 1;
 					}else{
 						genSize = atoi(argv[argIndex]);
@@ -195,17 +200,17 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 					}
 				}else{ 
 					cout << "Please follow 'seqinput' with an integer" << endl;
-					cout << AUTOMATON << endl;
+					cout << "Usage: ./CA -a seqinput 'sequenceSize'" << endl;
 					return 1;
 				}
 			}else if(string(argv[argIndex]) == "seqdefault"){
 				argIndex++;
-				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
+				if(argIndex >= argc){cout << "Usage: ./CA -a seqdefault 'sequenceSize'" << endl;return 1;}
 
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 0 || atoi(argv[argIndex]) > 200){
 						cout << "'seqdefault' should be follwed by an integer between 0 and 200" << endl;
-						cout << AUTOMATON << endl;
+						cout << "Usage: ./CA -a seqdefault 'sequenceSize'" << endl;
 						return 1;
 					}else{
 						genSize = atoi(argv[argIndex]);
@@ -213,7 +218,7 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 					}
 				}else{ 
 					cout << "Please follow 'seqdefault' with an integer" << endl;
-					cout << AUTOMATON << endl;
+					cout << "Usage: ./CA -a seqdefault 'sequenceSize'" << endl;
 					return 1;
 				}
 			}else if(string(argv[argIndex]) == "seqcustom"){
@@ -230,11 +235,11 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 				return 1;
 			}else if(string(argv[argIndex]) == "rulesetinput"){
 				argIndex++;
-				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
+				if(argIndex >= argc){cout << "Usage: ./CA -a 'seqoption' rulesetinput 'ruleset'" << endl;return 1;}
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 0 || atoi(argv[argIndex]) > 255){
 						cout << "rulesetinput' should be follwed by an integer between 0 and 255" << endl;
-						cout << AUTOMATON << endl;
+						cout << "Usage: ./CA -a 'seqoption' rulesetinput 'ruleset'" << endl;
 						return 1;
 					}else{
 						bitset<8> a (atoi(argv[argIndex]));
@@ -242,7 +247,7 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 					}
 				}else{ 
 					cout << "Please follow 'rulesetinput' with an integer";
-					cout << AUTOMATON << endl;
+					cout << "Usage: ./CA -a 'seqoption' rulesetinput 'ruleset'" << endl;
 					return 1;
 				}
 			}else if(string(argv[argIndex]) == "rulesetdefault"){
@@ -260,37 +265,37 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 			if(argIndex >= argc){
 				cout << AUTOMATON << endl;
 				return 1;
-			}else if(string(argv[argIndex]) == "iterationinput"){
+			}else if(string(argv[argIndex]) == "iterationall"){
 				argIndex++;
-				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
+				if(argIndex >= argc){cout << "Usage: ./CA -a 'seqoption' 'rulesetoption' iterationall 'iterations'" << endl;return 1;}
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 1){
-						cout << "iterationinput' should be follwed by an integer greater than 0" << endl;
-						cout << AUTOMATON << endl;
+						cout << "iterationall' should be follwed by an integer greater than 0" << endl;
+						cout << "Usage: ./CA -a 'seqoption' 'rulesetoption' iterationall 'iterations'" << endl;
 						return 1;
 					}else{
 						iterations = atoi(argv[argIndex]);
 					}
 				}else{ 
-					cout << "Please follow 'iterationinput' with an integer";
-					cout << AUTOMATON << endl;
+					cout << "Please follow 'iterationall' with an integer";
+					cout << "Usage: ./CA -a 'seqoption' 'rulesetoption' iterationall 'iterations'" << endl;
 					return 1;
 				}
 			}else if(string(argv[argIndex]) == "iterationsingle"){
 				singleline = true;
 				argIndex++;
-				if(argIndex >= argc){cout << AUTOMATON << endl;return 1;}
+				if(argIndex >= argc){cout << "Usage: ./CA -a 'seqoption' 'rulesetoption' iterationsingle 'iterations'" << endl;return 1;}
 				if(testInt(argv[argIndex])){
 					if(atoi(argv[argIndex]) < 1){
 						cout << "iterationsingle' should be follwed by an integer greater than 0" << endl;
-						cout << AUTOMATON << endl;
+						cout << "Usage: ./CA -a 'seqoption' 'rulesetoption' iterationsingle 'iterations'" << endl;
 						return 1;
 					}else{
 						iterations = atoi(argv[argIndex]);
 					}
 				}else{ 
 					cout << "Please follow 'iterationsingle' with an integer";
-					cout << AUTOMATON << endl;
+					cout << "Usage: ./CA -a 'seqoption' 'rulesetoption' iterationsingle 'iterations'" << endl;
 					return 1;
 				}
 			}else{

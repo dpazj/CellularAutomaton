@@ -2,7 +2,8 @@ CellularAutomaton by Joe Riemersma and Claire Sommerville
 This application produces a basic Cellular Automaton.
 
 CLI Arguments:
-	./CA [-db=<'decimal'] [-bd] [[-a] [[seqinput=<'sequenceSize'>][seqdefault=<'sequenceSize'>][custom]] [[-i=<'ruleset'>][-d][-c]] [[-i=<'repetitions'][-sl=<'repetitions'>]] [-s=<'outputfile'>] [-w]]
+	./CA Usage: ./CA -a [seqinput=<'sequenceSize'> | seqdefault=<'sequenceSize' | seqcustom]	[rulesetinput=<'ruleset'> | rulesetdefault | rulesetcustom] 	
+		[iterationall=<'repetitions' | iterationsingl=<'repetitions'>]	 [-s=<'outputfile'>] [-w]
 
 	-help:
 		Displays help file.
@@ -41,9 +42,9 @@ CLI Arguments:
 			User enters their own custom bitset.
 
 	Argument 3:
-		iterationinput='repetitions':
+		iterationall='repetitions':
 			Specifies the number of different sequences the program will produce.
-			Will produce 'repeitions' number of times.
+			Will produce all generations at once. Produces 'repeitions' number of generations.
 
 		iterationsingle='repetitions': 
 			Specifies the number of different sequences the program will produce. 
