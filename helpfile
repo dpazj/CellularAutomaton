@@ -2,20 +2,17 @@ CellularAutomaton by Joe Riemersma and Claire Sommerville
 This application produces a basic Cellular Automaton.
 
 CLI Arguments:
-	./CA Usage: ./CA -a [seqinput=<'sequenceSize'> | seqdefault=<'sequenceSize' | seqcustom]	[rulesetinput=<'ruleset'> | rulesetdefault | rulesetcustom] 	
-		[iterationall=<'repetitions' | iterationsingl=<'repetitions'>]	 [-s=<'outputfile'>] [-w]
+	./CA Usage:  [-a] [-help]
 
 	-help:
 		Displays help file.
 
-	-db | --decimalbin:
-		Converts decimal number to binary.
-
-	-bd | --bindecimal:
-		Converts binary number to decimal.
-
 	-a | --automaton:
 		Cell automaton feature. Must be followed by three arguments.
+		Usage: 
+		./CA -a [seqinput=<'sequenceSize'> | seqdefault=<'sequenceSize' | seqcustom]	[rulesetinput=<'ruleset'> | rulesetdefault | rulesetcustom] 	
+		[iterationall=<'repetitions' | iterationsingl=<'repetitions'>]	 [-s=<'outputfile'>]
+
 
 	Argument 1:
 		seqinput='sequenceSize':

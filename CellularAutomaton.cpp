@@ -160,7 +160,7 @@ bool testInt(char* argv){ //Test argument char array for an integer
 }
 
 int main(int argc, char* argv[]){ //Processes command line arguments
-	string USAGE("Usage: ./CA [-db] [-bd] [-a] \nUse command ./CA -help for more information.");
+	string USAGE("Usage: ./CA [-a] \nUse command ./CA -help for more information.");
 	string AUTOMATON("Usage: ./CA -a [seqinput=<'sequenceSize'> | seqdefault=<'sequenceSize' | seqcustom]	[rulesetinput=<'ruleset'> | rulesetdefault | rulesetcustom] 	[iterationall=<'repetitions' | iterationsingl=<'repetitions'>]	 [-s=<'outputfile'>] [-w] \nUse command ./CA -help for more information.");
 
 
@@ -377,12 +377,6 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 
 			StartAutomaton();
 			return 0;
-		}else if(string(argv[argIndex]) == "-db" || string(argv[argIndex]) == "--decimalbin"){
-			//TODO
-
-		}else if(string(argv[argIndex]) == "-bd" || string(argv[argIndex]) == "--bindecimal"){
-			//TODO
-
 		}else if(string(argv[argIndex]) == "-help"){
 			string line;
 			ifstream helpfile("helpfile");
