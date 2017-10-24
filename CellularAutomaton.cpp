@@ -90,7 +90,7 @@ char FindNextCell(int cellIndex){ //Works out the child cell based on the curren
 	middle = parentGen[cellIndex];
 	if(cellIndex == 0){	//Sets values of right and left when index is either zero or at the size of the array. Prevents out of bounds exception.
 		if(wrap){
-			left = parentGen[genSize];
+			left = parentGen[genSize - 1];
 		}else{
 			left = '0';
 		}
@@ -312,6 +312,7 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 					writeFileName = string(argv[argIndex]);
 					writeFile = true;
 				}else if(string(argv[argIndex]) == "-w" || string(argv[argIndex]) == "--wrap"){
+					cout << "WORKS";
 						wrap = true;
 					
 				}else{
