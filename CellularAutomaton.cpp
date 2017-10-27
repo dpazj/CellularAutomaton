@@ -8,6 +8,8 @@
 #include <fstream>
 #include <bitset>
 #include <string>
+#include <unistd.h>
+#include "LifeGrid.h"
 
 using namespace std;
 
@@ -37,10 +39,9 @@ bool validSeq(string seq){ //checks string to see if it is a binary sequence
 void RandGeneration(){ //Generates a random binary sequence
 	srand(time(NULL)); //Used to make more random each time **changes the seed**
 	for(int i = 0; i < genSize; i++){	
-		int temp = rand() % 2;	// generates the random number
-		if(temp == 0){			//casting an int to char was being a pain 
+		if(rand() % 2 == 0){			//generates random number
 			parentGen[i] = '0'; 
-		}else if(temp == 1){
+		}else{
 			parentGen[i] = '1';
 		} 
 	}
@@ -159,10 +160,32 @@ bool testInt(char* argv){ //Test argument char array for an integer
    return (*p == 0) ;
 }
 
-int main(int argc, char* argv[]){ //Processes command line arguments
-	string USAGE("Usage: ./CA [-a] \nUse command ./CA -help for more information.");
-	string AUTOMATON("Usage: ./CA -a [seqinput=<'sequenceSize'> | seqdefault=<'sequenceSize' | seqcustom]	[rulesetinput=<'ruleset'> | rulesetdefault | rulesetcustom] 	[iterationall=<'repetitions' | iterationsingl=<'repetitions'>]	 [-s=<'outputfile'>] [-w] \nUse command ./CA -help for more information.");
 
+void RunGameOfLife(int preset){
+	unsigned int sleeptime = 50000;
+	int evolutions = 2000; //number of evolutions
+
+	Grid g(200,50);
+
+	if(preset == 0){
+		g.InitialGeneration();
+	}else if(preset == 1){
+		g.GenerateGlider();
+	}
+	g.DisplayGrid();
+
+	usleep(sleeptime);
+	for(int i = 0; i < evolutions; i++) {
+			g.Generation();
+			g.DisplayGrid();
+			usleep(sleeptime);	
+	}
+}
+
+int main(int argc, char* argv[]){ //Processes command line arguments
+	string USAGE("Usage: ./CA [-a] [-gameoflife] \nUse command ./CA -help for more information.");
+	string AUTOMATON("Usage: ./CA -a [seqinput=<'sequenceSize'> | seqdefault=<'sequenceSize' | seqcustom]	[rulesetinput=<'ruleset'> | rulesetdefault | rulesetcustom] 	[iterationall=<'repetitions' | iterationsingl=<'repetitions'>]	 [-s=<'outputfile'>] [-w] \nUse command ./CA -help for more information.");
+	string GOLIFE("Usage: ./CA -gameoflife [random] [glider]");
 
 	int argIndex = 1;
 	
@@ -378,6 +401,18 @@ int main(int argc, char* argv[]){ //Processes command line arguments
 
 			StartAutomaton();
 			return 0;
+		}else if(string(argv[argIndex]) == "-gameoflife"){
+			argIndex++;
+			if(argIndex >= argc){cout << GOLIFE << endl;return 1;}
+
+			if(string(argv[argIndex]) == "random"){
+				RunGameOfLife(0);
+			}else if(string(argv[argIndex]) == "glider"){
+				RunGameOfLife(1);
+			}else{
+				cout << GOLIFE << endl;
+			}
+	
 		}else if(string(argv[argIndex]) == "-help"){
 			string line;
 			ifstream helpfile("helpfile");

@@ -2,10 +2,21 @@ CellularAutomaton by Joe Riemersma and Claire Sommerville
 This application produces a basic Cellular Automaton.
 
 CLI Arguments:
-	./CA Usage:  [-a] [-help]
+	./CA Usage:  [-a] [-gameoflife] [-help]
 
 	-help:
 		Displays help file.
+
+	-gameoflife:
+		Game of life feature. Must be followed by one argument.
+		Usage:
+		./CA -gameoflife [glider] [random]
+
+		Options:
+			glider:
+				Will use a preset Grid.
+			random:
+				Will randomly generate a grid.
 
 	-a | --automaton:
 		Cell automaton feature. Must be followed by three arguments.
