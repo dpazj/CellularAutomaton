@@ -162,7 +162,7 @@ bool testInt(char* argv){ //Test argument char array for an integer
 
 
 void RunGameOfLife(int preset){
-	unsigned int sleeptime = 50000;
+	unsigned int sleeptime = 150000;
 	int evolutions = 2000; //number of evolutions
 
 	Grid g(200,50);
