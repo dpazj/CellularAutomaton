@@ -1,4 +1,4 @@
-//Joe Riemersma and Claire Sommerville
+//Joe Riemersma 
 //Cellular Automation 
 //18/10/17
 
